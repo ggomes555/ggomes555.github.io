@@ -22,6 +22,7 @@ document.getElementById('address-form').addEventListener('submit', async (e) => 
             alert('No relevant staffers found for the selected issue area.');
         }
     } catch (error) {
+        console.log(error);
         alert('An error occurred while fetching data. Please try again.');
     }
 });
@@ -30,7 +31,9 @@ async function fetchRepresentatives(address) {
     const apiKey = 'AIzaSyARMjbt1tV6CdU8tcONxBVpHbXcZNBCGjc';
     const url = `https://www.googleapis.com/civicinfo/v2/representatives?key=${apiKey}&address=${encodeURIComponent(address)}&roles=legislatorUpperBody&roles=legislatorLowerBody`;
     const response = await fetch(url);
+        console.log(response);
     const data = await response.json();
+        console.log(response);
 
     if (data.error) {
         throw new Error(data.error.message);
@@ -44,7 +47,9 @@ async function fetchStafferData() {
     const url = 'bgov-federal-staff-full.csv';
 
     const response = await fetch(url);
+        console.log(response);
     const text = await response.text();
+        console.log(text);
     const lines = text.split('\n').slice(1); // Remove header line
 
     return lines.map((line) => {
